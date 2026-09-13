@@ -1,1 +1,1 @@
-rootProject.name = "EventAPI"
+rootProject.name = "nixon-event-api"
