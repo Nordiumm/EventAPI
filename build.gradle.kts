@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "net.nordiumm"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -30,6 +30,19 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             artifactId = "nixon-event-api"
+        }
+    }
+}
+
+tasks {
+    processResources {
+        val props = mapOf(
+            "version" to version,
+            "description" to project.description
+        )
+
+        filesMatching("plugin.yml") {
+            expand(props)
         }
     }
 }

@@ -1,0 +1,9 @@
+name: EventAPI
+description: $description
+version: '${version}'
+
+main: net.nordiumm.api.EventAPIPlugin
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ Nordiumm ]
