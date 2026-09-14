@@ -41,8 +41,8 @@ jobs:
 
       - name: Prepare Maven repository
         run: |
-          mkdir -p pages/EventAPI
-          cp -r ~/.m2/repository/net/nordiumm/nixon-event-api pages/EventAPI/
+          mkdir -p pages/net/nordiumm
+          cp -r ~/.m2/repository/net/nordiumm/nixon-event-api pages/net/nordiumm/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
