@@ -41,14 +41,35 @@ jobs:
 
       - name: Prepare Maven repository
         run: |
-          mkdir -p pages/net/nordiumm
-          cp -r ~/.m2/repository/net/nordiumm/nixon-event-api pages/net/nordiumm/
+          mkdir -p pages/net/nordiumm/nixon-event-api
+
+          cp -r ~/.m2/repository/net/nordiumm/nixon-event-api/* \
+            pages/net/nordiumm/nixon-event-api/
+
+          cat > pages/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Nordiumm EventAPI</title>
+          </head>
+          <body>
+            <h1>Nordiumm EventAPI</h1>
+            <p>Maven repository for the NixonMC EventAPI.</p>
+            <p>
+              Repository:
+              <code>https://nordiumm.github.io/EventAPI/</code>
+            </p>
+          </body>
+          </html>
+          EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: pages
 
