@@ -26,7 +26,7 @@ Register players when the event starts:
 
 ```java
 for (Player player : players) {
-    event.addPlayer(player);
+        event.addPlayer(player);
 }
 ```
 
@@ -100,6 +100,8 @@ The API handles the communication layer.
 
 This project is currently an internal NixonMC API.
 
+The API is published through GitHub Packages.
+
 The API is under active development and its API may change between versions.
 
 ## Dependencies
@@ -121,17 +123,27 @@ Gson is included by EventAPI because it is used internally for event result mess
 
 ### Using EventAPI
 
-Gamemode developers should add EventAPI as a `compileOnly` dependency:
+Gamemode developers should add the GitHub Packages repository:
 
 ```kotlin
-dependencies {
-    compileOnly("net.nordiumm:nixon-event-api:VERSION")
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/nordiumm/EventAPI")
+    }
 }
 ```
 
-Replace `VERSION` with the version of EventAPI being used.
+Then add EventAPI as a `compileOnly` dependency:
 
-EventAPI is intended to be used alongside a Paper plugin and does not need to be shaded into the gamemode plugin.
+```kotlin
+dependencies {
+    compileOnly("net.nordiumm:nixon-event-api:1.0.0")
+}
+```
+
+Replace `1.0.0` with the version of EventAPI being used.
+
+EventAPI is a plain Java library and is intended to be used alongside a Paper plugin.
 
 ## Requirements
 
