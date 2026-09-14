@@ -2,7 +2,7 @@
 
 Internal API for NixonMC event gamemodes.
 
-NixonEventAPI provides a simple interface for event gamemode developers to track player results during an event and submit those results to the NixonMC Event system.
+EventAPI provides a simple interface for event gamemode developers to track player results during an event and submit those results to the NixonMC Event system.
 
 ## Features
 
@@ -72,7 +72,7 @@ Persistent statistics such as total kills, total wins, total deaths, and total g
 ```text
 Gamemode
     │
-    │ NixonEventAPI
+    │ EventAPI
     ▼
 Event Result
     │
@@ -121,7 +121,7 @@ Gson is included by EventAPI because it is used internally for event result mess
 
 ### Using EventAPI
 
-Gamemode developers should add NixonEventAPI as a `compileOnly` dependency:
+Gamemode developers should add EventAPI as a `compileOnly` dependency:
 
 ```kotlin
 dependencies {
@@ -129,7 +129,7 @@ dependencies {
 }
 ```
 
-Replace `VERSION` with the version of NixonEventAPI being used.
+Replace `VERSION` with the version of EventAPI being used.
 
 EventAPI is intended to be used alongside a Paper plugin and does not need to be shaded into the gamemode plugin.
 
