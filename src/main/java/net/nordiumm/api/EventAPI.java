@@ -1,7 +1,6 @@
+
 package net.nordiumm.api;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import net.nordiumm.api.messaging.EventMessenger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -51,22 +50,15 @@ public class EventAPI {
     }
 
     public void finish() {
-        JsonArray playerResults = new JsonArray();
-
         for (EventPlayer player : players.values()) {
             EventResult result = new EventResult(player);
 
-            playerResults.add(result.toJson());
+            messenger.sendEventResult(
+                    result.toJson()
+            );
         }
 
-        JsonObject data = new JsonObject();
-
-        data.add(
-                "players",
-                playerResults
-        );
-
-        messenger.sendEventFinished(data);
+        messenger.sendEventFinished();
     }
 
     public void clear() {

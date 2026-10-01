@@ -23,38 +23,48 @@ public class EventMessenger {
                 );
     }
 
-    public void sendEventFinished(JsonObject data) {
-
+    public void sendEventResult(JsonObject result) {
         JsonObject message = new JsonObject();
 
-        message.addProperty(
-                "type",
-                "EVENT_FINISHED"
-        );
+        message.addProperty("type", "EVENT_RESULT");
+        message.add("data", result);
 
-        message.add(
-                "data",
-                data
-        );
+        sendMessage(message);
+    }
+
+    public void sendEventFinished() {
+        JsonObject message = new JsonObject();
+
+        message.addProperty("type", "EVENT_FINISHED");
+
+        sendMessage(message);
+    }
+
+    private void sendMessage(JsonObject message) {
+        Player carrier = plugin.getServer()
+                .getOnlinePlayers()
+                .stream()
+                .findFirst()
+                .orElse(null);
+
+        if (carrier == null) {
+            plugin.getLogger().severe(
+                    "Cannot send event message: no players are online."
+            );
+            return;
+        }
 
         byte[] bytes = message.toString()
                 .getBytes(StandardCharsets.UTF_8);
 
-        for (Player player :
-                plugin.getServer().getOnlinePlayers()) {
-
-            player.sendPluginMessage(
-                    plugin,
-                    CHANNEL,
-                    bytes
-            );
-
-            break;
-        }
+        carrier.sendPluginMessage(
+                plugin,
+                CHANNEL,
+                bytes
+        );
     }
 
     public void close() {
-
         plugin.getServer()
                 .getMessenger()
                 .unregisterOutgoingPluginChannel(
