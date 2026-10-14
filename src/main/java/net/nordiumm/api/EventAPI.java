@@ -1,9 +1,12 @@
 
 package net.nordiumm.api;
 
+import net.nordiumm.api.messaging.Database;
 import net.nordiumm.api.messaging.EventMessenger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,10 +19,14 @@ public class EventAPI {
 
     private final Plugin plugin;
     private final EventMessenger messenger;
+    public Database database;
 
     public EventAPI(Plugin plugin) {
         this.plugin = plugin;
         this.messenger = new EventMessenger(plugin);
+
+        EventAPIPlugin apiPlugin = EventAPIPlugin.getInstance();
+        database = new Database(apiPlugin, apiPlugin.getConfig());
     }
 
     public EventPlayer addPlayer(Player player) {
@@ -53,12 +60,23 @@ public class EventAPI {
         for (EventPlayer player : players.values()) {
             EventResult result = new EventResult(player);
 
-            messenger.sendEventResult(
-                    result.toJson()
-            );
+            database.AddDeaths(player.getUuid(), result.getDeaths());
+            database.AddKills(player.getUuid(), result.getKills());
+            database.AddGamesPlayed(player.getUuid(), 1);
+            database.AddPoints(player.getUuid(), result.getPoints());
+            if(result.isWinner()){
+                database.AddWins(player.getUuid(), 1);
+            }
+
         }
 
         messenger.sendEventFinished();
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            database.disconnect();
+        }, 60L);
+
+
     }
 
     public void clear() {

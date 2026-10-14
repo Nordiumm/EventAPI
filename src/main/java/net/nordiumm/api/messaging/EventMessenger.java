@@ -1,5 +1,6 @@
 package net.nordiumm.api.messaging;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -34,12 +35,9 @@ public class EventMessenger {
 
     public void sendEventFinished() {
         JsonObject message = new JsonObject();
-
         message.addProperty("type", "EVENT_FINISHED");
-
         sendMessage(message);
     }
-
     private void sendMessage(JsonObject message) {
         Player carrier = plugin.getServer()
                 .getOnlinePlayers()
