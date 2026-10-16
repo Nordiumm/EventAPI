@@ -1,0 +1,6 @@
+database:
+  host: "172.18.0.1"
+  port: 3306
+  name: "s11_Hg_Minigame"
+  username: "u11_QkzU9o3R0F"
+  password: "CHANGE_ME"

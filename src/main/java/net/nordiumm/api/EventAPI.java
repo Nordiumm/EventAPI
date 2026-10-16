@@ -58,6 +58,9 @@ public class EventAPI {
 
     public void finish() {
         for (EventPlayer player : players.values()) {
+            if(Bukkit.getPlayer(player.getUuid()) == null){
+                return;
+            }
             EventResult result = new EventResult(player);
 
             database.AddDeaths(player.getUuid(), result.getDeaths());
