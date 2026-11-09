@@ -59,7 +59,7 @@ public class EventAPI {
     public void finish() {
         for (EventPlayer player : players.values()) {
             if(Bukkit.getPlayer(player.getUuid()) == null){
-                return;
+                continue;
             }
             EventResult result = new EventResult(player);
 
